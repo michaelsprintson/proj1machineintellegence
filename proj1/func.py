@@ -35,3 +35,16 @@ class conflictcalculator():
             idx = lx.index(i)
             liformula[i] = f"{pr(idx)}Q{pr(self.size-1-idx)}"
         return "https://lichess.org/editor/" + "/".join(list(liformula)) + "_w_-_-_0_1?color=white", x
+
+def link_maker(playfield):
+    # playfield must be a numpy array, python list, or some other iterable of length 8.
+    # Each item of value j at index i represents a queen in column i at row j
+    # Columns are counted 0->8 left->right, and rows are counted 0->8 top->bottom
+    # Example input : [4, 0, 3, 5, 7, 1, 6, 2]
+    pr = lambda x: x if x > 0 else ""
+    lx = list(playfield)
+    liformula = np.zeros(8, dtype="object")
+    for i in range(0,8):
+        idx = lx.index(i)
+        liformula[i] = f"{pr(idx)}Q{pr(7-idx)}"
+    return "https://lichess.org/editor/" + "/".join(list(liformula)) + "_w_-_-_0_1?color=white"
