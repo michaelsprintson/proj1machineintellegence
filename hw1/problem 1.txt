@@ -1,0 +1,20 @@
+problem 1
+
+For each of the following assertions, say whether it is true or false and support your answer with examples or counterexamples where appropriate.
+
+Every agent function is implementable by some program/machine combination.
+
+An agent function maps perception histories to possible machine actions. Unfortunately, it is possible for both histories and actions to be infinite, making an injective mapping between them impossible to achieve by any program or machine.
+
+Suppose an agent selects its action uniformly at random from the set of possible actions. There exists a deterministic task environment in which this agent is rational.
+
+True, if the task is to be a random number or choice generator. For example, the machine that decides what the slot machine result is must choose a random result each time. This satisfies the condition for rationality, being that the agent chooses the "right" choice, in this case a random choice, from the actions that it can perform.
+
+
+It is possible for a given agent to be perfectly rational in two distinct task environments.
+
+True, since the requirement for being rational is to maximize success. For example, a machine learning model might be able to both play chess and backgammon given two distinct training sets and task environments, simply because it has the possibility of learning what a successful move looks like based on its observations of the boards and set of possible actions.
+
+Every agent is rational in an unobservable environment.
+
+False, since a rational action requires a rationale. Without an observable environment, it is impossible for any rationale to occur, and each action would have equal probability of making the agent successful. It is important to note here that the lack of a clear choice does not make all choices therefore rational. For example, take a robot (with the objective of staying alive) standing at the edge of a cliff. The robot has the choice to either drive off (forward) or retreat (backwards). Since the robot cannot observe its environment, it cannot make the rational choice of driving backwards, which is the action that would cause it to be the most successful. It cannot strive to do the right thing without knowledge of what that might be.

@@ -1,0 +1,13 @@
+problem 3
+
+a) Given a maze size of M x N, the state space is defined by the location of the object, the orientation of the robot (NSEW), the successor location update, and the goal is to reach the end. In this maze, the search state is 4(M*N - A), where A is the amount of space covered by the walls of the maze.
+
+b) In this problem, we only need to turn at intersections, and as a result we no longer need to consider each position within the length of a corridor independently, and can consider each corridor and corner as units. In this case, we only need to know the amount of intersections, I, and the amount of passages, P. In each passage, the only action is to continue and the successor is updating which passage/corridor the robot might be in, with the goal remaining the same. Each search state contains 4 possible branches for each direction, with a total size of 4(I+P).
+
+c) With the understanding that we only need to turn when hitting a corner, we can now cut down our search space to eliminate positions where the robot will be directly facing a wall. For passages, the only possible action is to continue moving through the tunnel. Since we know that in a 2D maze the solution can always be found by following the right hand wall, we can direct the robot to turn only when a right hand turn is available or when it hits a wall and therefore must turn left (or 180° in the case of a dead end). Therefore, we no longer need to track the orientation of the robot, and the search space becomes (I+P).
+
+d) One simplification is that the robot can only face in four possible directions. Finding exact angles in practice can be troublesome. 
+
+Another simplification is that the robot will automatically stop when approaching a wall. In practice, this requires telemetry, sensors and brakes that we abstract away. 
+
+The fact we know the initial location of the robot is also a simplification. In the real world, we often are placed in an entirely unknown or new environment with no prior information or knowledge.

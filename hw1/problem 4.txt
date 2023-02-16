@@ -1,0 +1,12 @@
+problem 4
+
+3) bidirectional search could work on this problem, since both the goal and origin are well defined and we can easily find the parent node (for node n, simply go to floor(n/2)). The branching factor from start to goal is 2 and from goal to start it is only 1. This might present a problem for bidirectional search, since the forward search (if using unbounded DFS) could take a very long time to meet the backwards search and therefore not serve useful. In fact, any search algorithm that does not immediately find the optimal route will be slower than the backwards algorithm, since there no decisions need to be made.
+
+4) Since the tree is very structured, it would be much more efficient to search backwards, since the only node to be visited from node n is floor(n/2). Reformulating this problem to be a simple recursive calculation removes all search elements outside of finding the node in memory. 
+
+5)  1: Create empty array of length ceiling(log_2(G)), where G is the goal state. 
+	2: While G > 0, 
+			insert G into array
+			G = floor(G/2)
+	3: Reverse and return array
+This array will contain the path from start node (1)

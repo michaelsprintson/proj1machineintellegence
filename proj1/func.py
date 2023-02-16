@@ -27,19 +27,12 @@ class conflictcalculator():
         self.filt = lambda x: (y:=np.unique(np.where([0<=i<size for i in x], x, -1)))[y>=0]
         self.r_h = lambda x: [set(self.filt(i)) for i in x]
         self.r_calc = lambda r,c,s : self.r_h(np.array([[r-(i:= np.abs(c-x)), r+i]for x in range(s)]))
-    def generate_link(self, x):
-        pr = lambda x: x if x > 0 else ""
-        lx = list(x)
-        liformula = np.zeros(self.size, dtype="object")
-        for i in range(0,self.size):
-            idx = lx.index(i)
-            liformula[i] = f"{pr(idx)}Q{pr(self.size-1-idx)}"
-        return "https://lichess.org/editor/" + "/".join(list(liformula)) + "_w_-_-_0_1?color=white", x
+
 
 def link_maker(playfield):
     # playfield must be a numpy array, python list, or some other iterable of length 8.
     # Each item of value j at index i represents a queen in column i at row j
-    # Columns are counted 0->8 left->right, and rows are counted 0->8 top->bottom
+    # Columns are counted 0->7 left->right, and rows are counted 0->7 top->bottom
     # Example input : [4, 0, 3, 5, 7, 1, 6, 2]
     pr = lambda x: x if x > 0 else ""
     lx = list(playfield)

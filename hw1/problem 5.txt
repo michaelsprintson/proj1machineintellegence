@@ -1,0 +1,8 @@
+problem 5
+
+We must first note two important parts of Constant Cost Breadth First Search. First, the cost to get to a particular node is equivalent to the shortest path to such node. Second, each node with the same cost is visited in the same pass of BFS. 
+
+Assume that BFS found path A, but shortest path B exists with len(A) > len(B). The first nodes on each path are visited together, as are the second and third nodes on each path. We can continue this trend to the len(A)th node on each path, which will be the goal on path A and a node on path B. Since these nodes are visited at the same sweep of BFS, BFS would find path A. This is a contradiction to the initial assumption, and therefore BFS will always find the shortest path in a graph with constant costs. 
+
+Below is an example of BFS not working in the case of varying costs. 
+

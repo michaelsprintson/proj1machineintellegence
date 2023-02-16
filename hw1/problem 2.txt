@@ -1,0 +1,26 @@
+problem 2 
+
+For each of the following activities, give a PEAS description of the task environment and characterize it in terms of the properties listed in Chapter 2 of the textbook.
+ 
+playing a tennis match
+
+performance measure: points scored, balls served/returned within court
+environment: tennis court
+actuators: Two jointed arms for holding racket, two jointed legs for moving around on court
+sensors: Video camera for finding position of ball, opponent, and position of robot on court. Gyroscope for finding orientation of racket, force sensor for determining how hard ball was hit
+
+
+practicing tennis against a wall
+
+performance measure: Balls returned to wall, trajectory of returning ball from wall
+environment: Half a tennis court with wall in place of net
+actuators: Two jointed arms for holding racket, two jointed legs for moving around on court
+sensors: Video camera for finding position of ball and position of robot on court. Gyroscope for finding orientation of racket, force sensor for determining how hard ball was hit
+
+performing a high jump
+
+performance measure: Height of jump, making it over the bar, landing safely
+environment: High jump field, high jump pole
+actuators: Humanoid body
+sensors: Accelerometer/Gyroscope/positioning system to know when to jump and the orientation of the body mid flight. Stereoscopic camera for seeing the bar and measuring height off of the ground.
+
