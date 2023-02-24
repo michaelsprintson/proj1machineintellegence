@@ -65,7 +65,7 @@ def min_conflict(playfield, size, comp_limit, printflag = False):
 #------------------------------------------------------------------------------------------------------------------
 
 # Quick function to check if the distance between two 2D points is sqrt(5) - knight opposition boolean
-dist_check = lambda a,b : np.around(np.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2), decimals=2) == 2.24
+dist_check = lambda a,b : (a[0]-b[0])**2 + (a[1]-b[1])**2 == 5
 
 
 def list_replace_copy(listi, idx, val):

@@ -3,6 +3,7 @@
     "[Monokai]": {}
     },
     "editor.tokenColorCustomizations": {
+    
         "[Monokai]": {
             "comments": "#bdb8b1"
         }
