@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 class yeilder():
     def __init__(self, size):
@@ -28,6 +29,13 @@ class conflictcalculator():
         self.r_h = lambda x: [set(self.filt(i)) for i in x]
         self.r_calc = lambda r,c,s : self.r_h(np.array([[r-(i:= np.abs(c-x)), r+i]for x in range(s)]))
 
+def check_valid(playfield, cc, size):
+    conflict_flag = 0
+    for c, r in enumerate(playfield):
+        if r >= 0:
+            x = cc.r_calc(r, c, size)
+            conflict_flag += len([j for j in [idx for idx,i in enumerate(playfield) if ((i in x[idx]) or (i in x[c]))] if j!= c])
+    return conflict_flag == 0
 
 def link_maker(playfield):
     # playfield must be a numpy array, python list, or some other iterable of length 8.
@@ -41,3 +49,22 @@ def link_maker(playfield):
         idx = lx.index(i)
         liformula[i] = f"{pr(idx)}Q{pr(7-idx)}"
     return "https://lichess.org/editor/" + "/".join(list(liformula)) + "_w_-_-_0_1?color=white"
+
+# Quick function to check if the distance between two 2D points is sqrt(5) - knight opposition boolean
+dist_check = lambda a,b : (a[0]-b[0])**2 + (a[1]-b[1])**2 == 5
+
+
+def list_replace_copy(listi, idx, val):
+    """
+    Function to replace one index in a list and return a copy
+    
+    listi (list) -> List of at least len (idx)
+    idx (int) -> The index of the node to replace
+    val (int) -> The value to replace at index (idx)
+
+    Returns: 
+    nl (list) -> Copied (listi) with replaced index value
+    """
+    nl = copy.copy(listi)
+    nl[idx] = val
+    return nl

@@ -1,12 +1,40 @@
 import numpy as np
-from func import conflictcalculator, yeilder
+from func import conflictcalculator, yeilder, dist_check, list_replace_copy, check_valid
 from itertools import product, combinations
 from collections import Counter
+from random import sample
 import copy
+
+def bfs(size, printflag = False):
+    """
+    Function to compute N-queens solution given empty board using Breadth First Search. 
+
+    size (int) -> The size of one side of the square chessboard
+    printflag (boolean) -> Whether or not to print out results
+
+    Returns: 
+    playfield (list) -> computed N-queens solution
+    """
+    cc = conflictcalculator(size)
+    playfield = [-1]*size
+    frontier = [playfield]
+    for col_fill in range(-1,size,1):
+        child_list = []
+        for pf in frontier:
+            if check_valid(pf, cc, size):
+                if (col_fill == size-1):
+                    if printflag:
+                        print("found", pf)
+                    return pf
+                for r in sample(range(size),size):
+                    child_list.append( list_replace_copy(pf,col_fill+1,r))
+        frontier = child_list
+
+#------------------------------------------------------------------------------------------------------------------
 
 def min_conflict(playfield, size, comp_limit, printflag = False):
     """
-    Function to compute 8-queens solution given initial starting position with 8 queens placed. 
+    Function to compute N-queens solution given initial starting position with N queens placed. 
     
     playfield (list) -> list of len (size) with integers [0-size)
     size (int) -> The size of one side of the square chessboard
@@ -17,7 +45,7 @@ def min_conflict(playfield, size, comp_limit, printflag = False):
     If solution not found:
         None
     If solution found
-        playfield (list) -> computed 8-queens solution
+        playfield (list) -> computed N-queens solution
         breaker (int) -> the amount of nodes checked
     """
     cc = conflictcalculator(size)
@@ -63,25 +91,6 @@ def min_conflict(playfield, size, comp_limit, printflag = False):
     return playfield, breaker
 
 #------------------------------------------------------------------------------------------------------------------
-
-# Quick function to check if the distance between two 2D points is sqrt(5) - knight opposition boolean
-dist_check = lambda a,b : (a[0]-b[0])**2 + (a[1]-b[1])**2 == 5
-
-
-def list_replace_copy(listi, idx, val):
-    """
-    Function to replace one index in a list and return a copy
-    
-    listi (list) -> List of at least len (idx)
-    idx (int) -> The index of the node to replace
-    val (int) -> The value to replace at index (idx)
-
-    Returns: 
-    nl (list) -> Copied (listi) with replaced index value
-    """
-    nl = copy.copy(listi)
-    nl[idx] = val
-    return nl
 
 class game_node():
     """
@@ -166,7 +175,7 @@ class game_node():
 
 def h_calc(pot_playspace, cc, size):
     """
-    Function to compute conflicts in current 8-queens solution
+    Function to compute conflicts in current N-queens solution
     
     pot_playspace (list) -> list of len (size) with integers [0-size)
     cc (int) -> An instance of conflictcalculator at size (size)
@@ -190,7 +199,7 @@ def h_calc(pot_playspace, cc, size):
 
 def makegfhrc(pot_playspace, cc, size, kflag = False):
     """
-    Function to compute 8-queens solution given initial starting position
+    Function to compute N-queens solution given initial starting position
     
     pot_playspace (list) -> list of len (size) with integers [0-size)
     cc (int) -> An instance of conflictcalculator at size (size)
@@ -231,7 +240,7 @@ def makegfhrc(pot_playspace, cc, size, kflag = False):
 
 def astar(size, init_playfield, max_iter, printflag = False, kflag = False):
     """
-    Function to compute 8-queens solution given initial starting position with anywhere between 1-8 queens placed. 
+    Function to compute N-queens solution given initial starting position with anywhere between 1-N queens placed. 
 
     size (int) -> The size of one side of the square chessboard
     init_playfield (list) -> list of len (size) with integers [0-size)
@@ -244,7 +253,7 @@ def astar(size, init_playfield, max_iter, printflag = False, kflag = False):
         None
         breaker (int) -> the amount of nodes checked
     If solution found
-        playfield (list) -> computed 8-queens solution
+        playfield (list) -> computed N-queens solution
         breaker (int) -> the amount of nodes checked
     """
     cc = conflictcalculator(size)
