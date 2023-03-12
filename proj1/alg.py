@@ -12,8 +12,7 @@ def bt_csp(size, printFlag = False):
     Depth-first solution searching - does so in order (next available solution)
     """
     cc = conflictcalculator(size)
-    playfield = [-1]*(size)
-    current_sol = [playfield]
+    current_sol = [-1]*(size)
     num_cols_filled = 0
     stop_flag = 0
 
