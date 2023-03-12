@@ -5,6 +5,36 @@ from collections import Counter
 from random import sample
 import copy
 
+def bt_csp(size, printFlag = False):
+    """
+    Function that uses constraint satisfaction with backtracking.
+
+    Depth-first solution searching - does so in order (next available solution)
+    """
+    cc = conflictcalculator(size)
+    playfield = [-1]*(size)
+    current_sol = [playfield]
+    num_cols_filled = 0
+    stop_flag = 0
+
+    while stop_flag == 0:
+        for col_fill in range(num_cols_filled, size):
+            for row_fill in range(current_sol[col_fill]+1, size):
+                current_sol[col_fill] = row_fill
+                if check_valid(current_sol, cc, size):
+                    num_cols_filled += 1
+                    if (col_fill == size-1):
+                        if printFlag:
+                            print("found", current_sol)
+                        return current_sol
+                    break
+            if col_fill == num_cols_filled:
+                current_sol[col_fill] = -1
+                num_cols_filled -= 1
+                break
+
+                    
+
 def bfs(size, printflag = False):
     """
     Function to compute N-queens solution given empty board using Breadth First Search. 
