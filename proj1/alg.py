@@ -14,9 +14,8 @@ def bt_csp(size, printFlag = False):
     cc = conflictcalculator(size)
     current_sol = [-1]*(size)
     num_cols_filled = 0
-    stop_flag = 0
 
-    while stop_flag == 0:
+    while True:
         for col_fill in range(num_cols_filled, size):
             for row_fill in range(current_sol[col_fill]+1, size):
                 current_sol[col_fill] = row_fill
@@ -32,7 +31,7 @@ def bt_csp(size, printFlag = False):
                 num_cols_filled -= 1
                 break
 
-                    
+#------------------------------------------------------------------------------------------------------------------
 
 def bfs(size, printflag = False):
     """
