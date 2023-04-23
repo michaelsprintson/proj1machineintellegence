@@ -5,6 +5,36 @@ from collections import Counter
 from random import sample
 import copy
 
+def bt_dfs(size, printFlag = False):
+    """
+    Function that uses constraint satisfaction with backtracking.
+
+    Depth-first solution searching - does so in order (next available solution)
+    """
+    cc = conflictcalculator(size)
+    current_sol = [-1]*(size)
+    num_cols_filled = 0
+    breaker = 0
+
+    while True:
+        for col_fill in range(num_cols_filled, size):
+            for row_fill in range(current_sol[col_fill]+1, size):
+                current_sol[col_fill] = row_fill
+                breaker += 1
+                if check_valid(current_sol, cc, size):
+                    num_cols_filled += 1
+                    if (col_fill == size-1):
+                        if printFlag:
+                            print("found", current_sol)
+                        return current_sol, breaker
+                    break
+            if col_fill == num_cols_filled:
+                current_sol[col_fill] = -1
+                num_cols_filled -= 1
+                break
+
+#------------------------------------------------------------------------------------------------------------------
+
 def bfs(size, printflag = False):
     """
     Function to compute N-queens solution given empty board using Breadth First Search. 
@@ -15,17 +45,19 @@ def bfs(size, printflag = False):
     Returns: 
     playfield (list) -> computed N-queens solution
     """
+    breaker = 0
     cc = conflictcalculator(size)
     playfield = [-1]*size
     frontier = [playfield]
     for col_fill in range(-1,size,1):
         child_list = []
         for pf in frontier:
+            breaker += 1
             if check_valid(pf, cc, size):
                 if (col_fill == size-1):
                     if printflag:
                         print("found", pf)
-                    return pf
+                    return pf, breaker
                 for r in sample(range(size),size):
                     child_list.append( list_replace_copy(pf,col_fill+1,r))
         frontier = child_list

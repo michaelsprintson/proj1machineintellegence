@@ -7,5 +7,6 @@
         "[Monokai]": {
             "comments": "#bdb8b1"
         }
-    }
+    },
+    "notebook.output.textLineLimit": 500
 }
